@@ -1,7 +1,5 @@
 # Markdown 转换器 (MarkdownConverter) 
 
-## 概述
-
 Markdown 转换器是一款基于 WPF (Windows Presentation Foundation) 开发的桌面应用程序，专为需要将 Markdown 文档转换为多种格式的用户设计。该程序集成了 Pandoc 文档转换引擎和 WebView2 渲染组件，提供了现代化的用户界面和强大的文档处理能力。
 ![MarkdownConverter](https://github.com/xuyong73/MarkdownConverter/blob/main/MainForm.png)
 
@@ -112,18 +110,9 @@ Markdown 转换器是一款基于 WPF (Windows Presentation Foundation) 开发�
 3. **图片无法显示**：路径解析错误
    - 解决：确保图片与 .md 文件在同一目录
 
-### 日志和调试
-- **错误提示**：程序会显示详细的错误信息
-- **异常捕获**：所有关键操作都有异常处理
-- **状态反馈**：按钮状态变化提供操作反馈
-
 ## 版本信息
 
 - **开发框架**：.NET 10.0 Windows 7.0
 - **UI 框架**：WPF (Windows Presentation Foundation)
 - **WebView2 版本**：1.0.3650.58
-- **应用程序名称**：MDConv
-
-## 总结
-
-Markdown 转换器是一款功能强大、界面美观的文档处理工具，它将 Markdown 的简洁性与 Word 的专业性完美结合。无论是日常文档编写还是专业内容制作，都能提供流畅的使用体验和高质量的输出结果。程序采用现代化的技术栈，注重用户体验和性能优化，是处理 Markdown 文档的理想选择。
+- **应用程序名称**：MDConv.exe
