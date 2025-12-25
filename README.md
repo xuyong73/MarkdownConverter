@@ -3,6 +3,7 @@
 ## 概述
 
 Markdown 转换器是一款基于 WPF (Windows Presentation Foundation) 开发的桌面应用程序，专为需要将 Markdown 文档转换为多种格式的用户设计。该程序集成了 Pandoc 文档转换引擎和 WebView2 渲染组件，提供了现代化的用户界面和强大的文档处理能力。
+![MarkdownConverter](https://github.com/xuyong73/MarkdownConverter/blob/main/MainForm.png)
 
 ## 核心功能
 
