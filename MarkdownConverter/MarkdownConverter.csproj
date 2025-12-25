@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>convert.ico</ApplicationIcon>
+    <AssemblyName>MDConv</AssemblyName>
+    <!-- 不生成XML文档文件 -->
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <!-- 配置依赖项复制 -->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <WebView2InstallMode>Automatic</WebView2InstallMode>
+    <WebView2BrowseUrl>about:blank</WebView2BrowseUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="convert.ico" />
+    <Content Include="wwwroot\**\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- 配置包，从源头上排除XML文件 -->
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3650.58" />
+  </ItemGroup>
+
+  <!-- 使用MSBuild的依赖项解析机制从源头上排除XML文件 -->
+  <Target Name="ExcludeXmlFilesFromSource" AfterTargets="ResolveAssemblyReferences" BeforeTargets="CopyFilesToOutputDirectory">
+    <ItemGroup>
+      <!-- 从引用复制路径中排除XML文件 -->
+      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition=" '%(ReferenceCopyLocalPaths.Extension)' == '.xml' " />
+      <!-- 从解析的文件中排除XML文件 -->
+      <ResolvedFileToCopyToOutputDirectory Remove="@(ResolvedFileToCopyToOutputDirectory)" Condition=" '%(ResolvedFileToCopyToOutputDirectory.Extension)' == '.xml' " />
+    </ItemGroup>
+  </Target>
+
+
+
+</Project>
