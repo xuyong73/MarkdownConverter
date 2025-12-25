@@ -58,14 +58,13 @@ Markdown 转换器是一款基于 WPF (Windows Presentation Foundation) 开发�
 - **打开文件**：通过命令行参数直接打开 .md 文件
 - **图片处理**：在 Markdown 文件所在目录放置图片，程序自动解析相对路径
 - **主题切换**：点击"切换样式"按钮切换明暗主题
-- **任务统计**：自动统计任务列表完成情况
 
 ## 依赖要求
 
 ### 运行环境
 - **操作系统**：Windows 7 或更高版本
 - **.NET 运行时**：.NET 10.0 Runtime
-- **WebView2 Runtime**：自动安装或已预装
+- **WebView2 Runtime**：自动安装或已预装（需要系统自带Edge浏览器）
 
 ### 可选依赖
 - **Pandoc**：用于高级格式转换（Word 导出等）
