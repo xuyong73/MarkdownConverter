@@ -3,15 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MarkdownConverter"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
         mc:Ignorable="d"
         Title="Markdown 转换器"
         Height="700"
         Width="1000"
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
-        Background="#F0F2F5"
+        Background="#FFFFFF"
         FontFamily="Segoe UI"
         Foreground="#1E1E1E"
         UseLayoutRounding="True"
@@ -19,7 +19,8 @@
         RenderOptions.BitmapScalingMode="HighQuality"
         RenderOptions.EdgeMode="Aliased">
     <Window.Resources>
-        <!-- 按钮样式：三种状态 -->
+        <DropShadowEffect x:Key="ShadowEffect" BlurRadius="3" Opacity="0.2" Direction="270"/>
+
         <Style x:Key="CustomButtonStyle" TargetType="Button">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
@@ -52,6 +53,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -66,88 +68,43 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
-            <RichTextBox x:Name="txtMarkdown" Grid.Column="0" Margin="8,8,4,8" FontFamily="Consolas" FontSize="14" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="#F0F2F5" BorderThickness="1" BorderBrush="#E0E0E0" Cursor="IBeam" AllowDrop="True" PreviewDrop="txtMarkdown_PreviewDrop" PreviewDragOver="txtMarkdown_PreviewDragOver">
-                <RichTextBox.Effect>
-                    <DropShadowEffect BlurRadius="3" Opacity="0.2" Direction="270"/>
-                </RichTextBox.Effect>
-                <RichTextBox.ContextMenu>
-                    <ContextMenu Background="#F0F2F5" BorderBrush="#E0E0E0" BorderThickness="1">
-                        <MenuItem Header="粘贴" 
-                                  Click="PasteMenuItem_Click"
-                                  Background="#F0F2F5"
-                                  Foreground="#1E1E1E"
-                                  FontSize="12"
-                                  Padding="8,4" 
-                                  Cursor="Hand">
-                            <MenuItem.Style>
-                                <Style TargetType="MenuItem">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#E0E2E5"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </MenuItem.Style>
-                        </MenuItem>
-                    </ContextMenu>
-                </RichTextBox.ContextMenu>
-                <FlowDocument>
-                    <Paragraph Margin="0" LineHeight="1.2">
-                        <Run Text="# Markdown 转换器" Foreground="#2563EB"/><LineBreak/>
-                        <LineBreak/>
-                        <Run Text="欢迎使用此工具，您可以将Markdown文本粘贴到左侧编辑器，然后点击&quot;转换&quot;按钮，右侧会实时显示格式化的内容。" Foreground="#1E1E1E"/><LineBreak/>
-                        <LineBreak/>
-                        <Run Text="## 使用说明" Foreground="#2563EB"/><LineBreak/>
-                        <Run Text="1. 从源获取Markdown文本" Foreground="#1E1E1E"/><LineBreak/>
-                        <Run Text="2. 粘贴到左侧编辑器" Foreground="#1E1E1E"/><LineBreak/>
-                        <Run Text="3. 点击&quot;转换&quot;按钮" Foreground="#1E1E1E"/><LineBreak/>
-                        <Run Text="4. 右侧实时显示转换结果" Foreground="#1E1E1E"/><LineBreak/>
-                        <LineBreak/>
-                        <Run Text="## 支持的功能" Foreground="#2563EB"/><LineBreak/>
-                        <Run Text="- 标题 (#, ##)" Foreground="#1E1E1E"/><LineBreak/>
-                        <Run Text="- 列表 (*, -)" Foreground="#1E1E1E"/><LineBreak/>
-                        <Run Text="- 任务列表 (- [ ] 和 - [x])" Foreground="#1E1E1E"/><LineBreak/>
-                        <Run Text="- 链接和图片" Foreground="#1E1E1E"/><LineBreak/>
-                        <Run Text="- 强调" Foreground="#1E1E1E"/><LineBreak/>
-                        <Run Text="- 代码块" Foreground="#1E1E1E"/><LineBreak/>
-                        <Run Text="- 数学公式" Foreground="#1E1E1E"/><LineBreak/>
-                        <LineBreak/>
-                        <Run Text="## 任务列表示例" Foreground="#2563EB"/><LineBreak/>
-                        <Run Text="- [ ] 待完成任务" Foreground="#1E1E1E"/><LineBreak/>
-                        <Run Text="- [x] 已完成任务" Foreground="#1E1E1E"/><LineBreak/>
-                        <LineBreak/>
-                        <Run Text="提示：转换后的内容可以直接复制到Word文档中" Foreground="#1E1E1E"/>
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
+            <ae:TextEditor x:Name="txtMarkdown" Grid.Column="0" Margin="8,8,4,8" FontFamily="Consolas, Microsoft YaHei" FontSize="14" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="#FFFFFF" BorderThickness="1" BorderBrush="#E0E0E0" Cursor="IBeam" AllowDrop="True" PreviewDrop="TxtMarkdown_PreviewDrop" PreviewDragOver="TxtMarkdown_PreviewDragOver" WordWrap="True" Text="# Markdown 转换器&#x0a;&#x0a;欢迎使用此工具，您可以将 Markdown 文本粘贴到左侧编辑器，右侧会实时显示格式化的内容。&#x0a;&#x0a;## 使用说明&#x0a;1. 从源获取 Markdown 文本&#x0a;2. 粘贴到左侧编辑器&#x0a;3. 右侧实时显示转换结果&#x0a;&#x0a;## 支持的功能&#x0a;- 标题 (#, ##)&#x0a;- 列表 (*, -)&#x0a;- 任务列表 (- [ ] 和 - [x])&#x0a;- 链接和图片&#x0a;- 强调&#x0a;- 代码块&#x0a;- 数学公式&#x0a;&#x0a;## 任务列表示例&#x0a;- [ ] 待完成任务&#x0a;- [x] 已完成任务&#x0a;&#x0a;提示：转换后的内容可以直接复制到 Word 文档中">
+                <ae:TextEditor.Effect>
+                    <StaticResource ResourceKey="ShadowEffect"/>
+                </ae:TextEditor.Effect>
+            </ae:TextEditor>
             
             <GridSplitter x:Name="gridSplitter" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#E0E0E0" ShowsPreview="True" Width="2" Cursor="SizeWE"/>
             
-            <Border Grid.Column="2" Margin="4,8,8,8" Background="#F0F2F5" BorderThickness="1" BorderBrush="#E0E0E0"><Border.Effect><DropShadowEffect BlurRadius="3" Opacity="0.2" Direction="270"/></Border.Effect><wv2:WebView2 x:Name="webView2" /></Border>
+            <Border Grid.Column="2" Margin="4,8,8,8" Background="#FFFFFF" BorderThickness="1" BorderBrush="#E0E0E0"><Border.Effect><StaticResource ResourceKey="ShadowEffect"/></Border.Effect><wv2:WebView2 x:Name="webView2" /></Border>
         </Grid>
         
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="16">
-            <Button x:Name="btnConvert" 
-                    Content="转换" 
-                    Width="230" 
-                    Background="#2563EB"
-                    Margin="0 0 12 0"
-                    Style="{StaticResource CustomButtonStyle}"
-                    Click="BtnConvert_Click" />
-            <Button x:Name="btnExport" 
-                    Content="保存文件" 
-                    Width="230" 
-                    Background="#10B981"
-                    Margin="0 0 12 0"
-                    Style="{StaticResource CustomButtonStyle}"
-                    Click="BtnExport_Click" />
-            <Button x:Name="btnStyles" 
-                    Content="切换样式" 
-                    Width="180" 
-                    Background="#6366F1"
-                    Margin="0 0 12 0"
-                    Style="{StaticResource CustomButtonStyle}"
-                    Click="BtnStyles_Click" />
-        </StackPanel>
+        <Grid Grid.Row="1" Margin="16,8,16,8">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button x:Name="btnOpen" 
+                        Content="打开文件" 
+                        Width="180" 
+                        Background="#F59E0B"
+                        Margin="0 0 12 0"
+                        Style="{StaticResource CustomButtonStyle}"
+                        Click="BtnOpen_Click" />
+                <Button x:Name="btnExport" 
+                        Content="保存文件" 
+                        Width="230" 
+                        Background="#10B981"
+                        Margin="0 0 12 0"
+                        Style="{StaticResource CustomButtonStyle}"
+                        Click="BtnExport_Click" />
+                <Button x:Name="btnStyles" 
+                        Content="切换样式" 
+                        Width="180" 
+                        Background="#6366F1"
+                        Style="{StaticResource CustomButtonStyle}"
+                        Click="BtnStyles_Click" />
+            </StackPanel>
+            <Border x:Name="statusBorder" VerticalAlignment="Center" HorizontalAlignment="Left" Padding="12,6" CornerRadius="4" Background="#374151" IsHitTestVisible="False" MinWidth="80">
+                <TextBlock x:Name="txtStatus" FontSize="13" FontWeight="SemiBold" Text="就绪" Foreground="White" TextAlignment="Center"/>
+            </Border>
+        </Grid>
     </Grid>
 </Window>

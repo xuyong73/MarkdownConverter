@@ -3,27 +3,50 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0-windows7.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ImplicitUsings>enable</ImplicitUsings>
+    
     <ApplicationIcon>convert.ico</ApplicationIcon>
     <AssemblyName>MDConv</AssemblyName>
-    <!-- 不生成XML文档文件 -->
+    <Version>3.2.0</Version>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
-    <!-- 配置依赖项复制 -->
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <WebView2InstallMode>Automatic</WebView2InstallMode>
     <WebView2BrowseUrl>about:blank</WebView2BrowseUrl>
+    <DebugType>embedded</DebugType>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <NoWarn>CA1416</NoWarn>
+    <!-- 仅在 Windows X64 上运行，避免生成其他平台的 native dll -->
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PlatformTarget>x64</PlatformTarget>
+    <SelfContained>false</SelfContained>
+    <!-- 输出路径不追加 RID 子目录，直接放在 net10.0-windows7.0 内 -->
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <!-- 只保留中文本地化资源，排除其他语言附属程序集 -->
+    <SatelliteResourceLanguages>zh-CN</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="convert.ico" />
-    <Content Include="wwwroot\**\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Preview.js" />
   </ItemGroup>
 
   <ItemGroup>
     <!-- 配置包，从源头上排除XML文件 -->
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3650.58" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4129.50" />
+    <PackageReference Include="AvalonEdit" Version="6.3.1.120" />
   </ItemGroup>
 
   <!-- 使用MSBuild的依赖项解析机制从源头上排除XML文件 -->
